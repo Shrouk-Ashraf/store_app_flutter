@@ -1,14 +1,12 @@
 
-import 'dart:convert';
-
 import 'package:store_app/models/category_model.dart';
 
 class ProductsModel{
   final int id;
   final String title;
-  final double price;
+  final int price;
   final String description;
-  final List<String> images;
+  final List<dynamic> images;
   final String createdAt;
   final String updatedAt;
   final CategoryModel category;

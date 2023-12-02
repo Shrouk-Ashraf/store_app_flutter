@@ -11,8 +11,8 @@ class AllProductsService{
 
     List<ProductsModel> products = [];
 
-    for (var product in data) {
-      products.add(ProductsModel.fromJson(product));
+    for (int i =0; i < data.length; i++) {
+      products.add(ProductsModel.fromJson(data[i]));
     }
     return products;
   }

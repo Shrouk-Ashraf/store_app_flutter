@@ -22,16 +22,54 @@ class Api{
     @required String? token
   })async{
     Map<String,String> headers ={};
+
+    headers.addAll({
+      'Accept':'application/json',
+      'Content-Type':'application/json'
+    });
     if(token != null){
       headers.addAll({
         'Authorization':'Bearer $token'});
     }
 
     http.Response response = await http.post(
-      Uri.parse(url),
+      Uri.parse("$BASE_URL/$url"),
     body: jsonEncode(body),
       headers: headers
     );
-    return jsonDecode(response.body);
+    if(response.statusCode == 200) {
+      return jsonDecode(response.body);
+    }else{
+      throw Exception('There is a problem in status code ${response.statusCode} & the body is ${jsonDecode(response.body)}');
+    }
+  }
+
+  Future<dynamic> put({required String url,
+    @required dynamic body,
+    @required String? token
+  })async{
+    Map<String,String> headers ={};
+
+    headers.addAll({
+      'Accept':'application/json',
+      'Content-Type':'application/json'
+    });
+    if(token != null){
+      headers.addAll({
+        'Authorization':'Bearer $token'});
+    }
+
+    http.Response response = await http.put(
+        Uri.parse("$BASE_URL/$url"),
+        body: jsonEncode(body),
+        headers: headers
+    );
+    if(response.statusCode == 200) {
+      Map<String,dynamic> data =jsonDecode(response.body);
+      print(data);
+      return data;
+    }else{
+      throw Exception('There is a problem in status code ${response.statusCode} & the body is ${jsonDecode(response.body)}');
+    }
   }
 }
